@@ -1,0 +1,80 @@
+#!/bin/bash
+
+#######################################################################
+#
+# versions in this release
+
+
+#######################################################################
+
+set -e
+
+target_dir=$1
+
+if [ "X$target_dir" = "X" ]; then
+    echo "Please specify a target directory. Example: ./create-env /tmp/myenv" >&1
+    exit 1
+fi
+
+if [ -e $target_dir ]; then
+    echo "Target directory already exists - refusing to work on it" >&1
+    exit 1
+fi
+
+
+function announce {
+    echo
+    echo "#######################################################################################"
+    echo "## $1       ("`date -u`")"
+    echo
+}
+
+# build environment
+export LC_ALL=en_US.utf8
+export LANG=en_US.utf8
+
+export PATH=$target_dir/bin:$PATH
+
+announce "Installing CMake"
+cd /tmp
+wget -nv -O cmake-3.17.3-Linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz 
+tar xzf cmake-3.17.3-Linux-x86_64.tar.gz
+mv cmake-3.17.3-Linux-x86_64 $target_dir
+rm -f cmake-3.17.3-Linux-x86_64.tar.gz
+
+announce "Installing HDF5"
+cd /tmp
+wget -nv -O hdf5-1.10.6.tar.gz https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.6/src/hdf5-1.10.6.tar.gz
+tar xzf hdf5-1.10.6.tar.gz
+cd hdf5-1.10.6
+./configure --prefix=$target_dir --enable-threadsafe --disable-hl
+make -j4
+make install
+cd /tmp
+rm -rf hdf5-1.10.6.tar.gz hdf5-1.10.6
+
+announce "Installing GEANT4"
+set -v
+cd /tmp
+wget -nv -O geant4.10.05.p01.tar.gz http://cern.ch/geant4-data/releases/geant4.10.05.p01.tar.gz
+tar xzf geant4.10.05.p01.tar.gz
+cd geant4.10.05.p01 
+mkdir build 
+cd build 
+cmake -DCMAKE_INSTALL_PREFIX=$target_dir \
+      -DGEANT4_INSTALL_DATA=ON  \
+      -DGEANT4_USE_OPENGL_X11=OFF \
+      -DGEANT4_BUILD_MULTITHREADED=ON \
+      -DGEANT4_USE_QT=OFF \
+      -DGEANT4_USE_GDML=OFF \
+      -DGEANT4_USE_RAYTRACER_X11=OFF \
+      -DGEANT4_USE_XM=OFF \
+      -DGEANT4_USE_HDF5=ON \
+      /tmp/geant4.10.05.p01
+make -j2
+make install
+cd /tmp
+rm -rf geant4.10.05.p01.tar.gz geant4.10.05.p01
+
+announce "All done!"
+

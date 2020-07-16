@@ -2,14 +2,34 @@ FROM opensciencegrid/osgvo-xenon:development
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \
-            xerces-c \
-            xerces-c-devel \
-            qt5-qtbase-devel \
+            avahi-compat-libdns_sd-devel \
+            cfitsio-devel \
             expat \
             expat-devel \
+            fftw-devel \
+            ftgl-devel \
+            gcc-gfortran \
+            glew-devel \
+            graphviz-devel \
+            gsl-devel \
+            libX11-devel \
+            libXext-devel \
+            libXft-devel \
+            libxml2-devel \
             libXmu-devel \
+            libXpm-devel \
+            mesa-libGL-devel \
+            mesa-libGLU-devel \
             motif \
+            mysql-devel \
+            openldap-devel \
             openmotif-devel \
+            openssl-devel \
+            pcre-devel \
+            qt5-qtbase-devel \
+            redhat-lsb-core \
+            xerces-c \
+            xerces-c-devel \
     && \
     yum clean all
 

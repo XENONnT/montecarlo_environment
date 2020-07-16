@@ -4,6 +4,8 @@
 #
 # versions in this release
 
+root_version=6.22.00
+geant4_version=10.05.p01
 
 #######################################################################
 
@@ -35,11 +37,18 @@ export LANG=en_US.utf8
 
 export PATH=$target_dir/bin:$PATH
 
+announce "Installing ROOT"
+cd /tmp
+wget -nv -O root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz  https://root.cern/download/root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz
+tar xzf root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz -C /opt
+mv /opt/root $target_dir
+rm -rf root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz
+
 announce "Installing CMake"
 cd /tmp
 wget -nv -O cmake-3.17.3-Linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz 
 tar xzf cmake-3.17.3-Linux-x86_64.tar.gz
-mv cmake-3.17.3-Linux-x86_64 $target_dir
+cp -a cmake-3.17.3-Linux-x86_64/* $target_dir/
 rm -f cmake-3.17.3-Linux-x86_64.tar.gz
 
 announce "Installing HDF5"
@@ -56,25 +65,36 @@ rm -rf hdf5-1.10.6.tar.gz hdf5-1.10.6
 announce "Installing GEANT4"
 set -v
 cd /tmp
-wget -nv -O geant4.10.05.p01.tar.gz http://cern.ch/geant4-data/releases/geant4.10.05.p01.tar.gz
-tar xzf geant4.10.05.p01.tar.gz
-cd geant4.10.05.p01 
+wget -nv -O geant4.${geant4_version}.tar.gz http://cern.ch/geant4-data/releases/geant4.${geant4_version}.tar.gz
+tar xzf geant4.${geant4_version}.tar.gz
+cd geant4.${geant4_version}
 mkdir build 
 cd build 
 cmake -DCMAKE_INSTALL_PREFIX=$target_dir \
       -DGEANT4_INSTALL_DATA=ON  \
       -DGEANT4_USE_OPENGL_X11=OFF \
       -DGEANT4_BUILD_MULTITHREADED=ON \
-      -DGEANT4_USE_QT=OFF \
+      -DGEANT4_USE_QT=ON \
       -DGEANT4_USE_GDML=OFF \
       -DGEANT4_USE_RAYTRACER_X11=OFF \
       -DGEANT4_USE_XM=OFF \
       -DGEANT4_USE_HDF5=ON \
-      /tmp/geant4.10.05.p01
-make -j2
+      /tmp/geant4.${geant4_version}
+make -j8
 make install
 cd /tmp
-rm -rf geant4.10.05.p01.tar.gz geant4.10.05.p01
+rm -rf geant4.${geant4_version}.tar.gz geant4.${geant4_version}
+
+# this will be sourced when entering the container
+cat > /.singularity.d/env/51-xenon-montecarlo.sh <<EOF
+#!/bin/bash
+
+if [ \$XENON_SOURCE -eq 1 ]; then
+    source ${target_dir}/bin/thisroot.sh
+    source ${target_dir}/bin/geant4.sh
+    source ${target_dir}/share/Geant4-*/geant4make/geant4make.sh
+fi
+EOF
 
 announce "All done!"
 

@@ -1,9 +1,11 @@
 FROM opensciencegrid/osgvo-xenon:development
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
+    yum -y install centos-release-scl && \
     yum -y install \
             avahi-compat-libdns_sd-devel \
             cfitsio-devel \
+            devtoolset-8 \
             expat \
             expat-devel \
             fftw-devel \
@@ -35,7 +37,8 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
 
 ADD create-env /tmp/
 
-RUN cd /tmp && \
+RUN source scl_source enable devtoolset-8 && \
+    cd /tmp && \
     bash create-env /opt/geant4 && \
     rm -f create-env 
 

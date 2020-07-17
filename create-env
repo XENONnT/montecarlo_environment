@@ -5,7 +5,7 @@
 # versions in this release
 
 root_version=6.22.00
-geant4_version=10.05.p01
+geant4_version=10.06.p02
 
 #######################################################################
 
@@ -90,6 +90,7 @@ cat > /.singularity.d/env/51-xenon-montecarlo.sh <<EOF
 #!/bin/bash
 
 if [ \$XENON_SOURCE -eq 1 ]; then
+    source scl_source enable devtoolset-8
     source ${target_dir}/bin/thisroot.sh
     source ${target_dir}/bin/geant4.sh
     source ${target_dir}/share/Geant4-*/geant4make/geant4make.sh

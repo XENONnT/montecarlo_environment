@@ -36,6 +36,7 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum clean all
 
 ADD create-env /tmp/
+ADD thisroot.sh /tmp/
 
 RUN source scl_source enable devtoolset-8 && \
     cd /tmp && \

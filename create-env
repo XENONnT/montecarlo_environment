@@ -87,7 +87,7 @@ rm -rf geant4.${geant4_version}.tar.gz geant4.${geant4_version}
 
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container
-perl -p -i -e 's;^SOURCE=.*;SOURCE=/opt/geant4/bin/thisroot.sh;' /opt/geant4/bin/thisroot.sh
+cp /tmp/thisroot.sh /opt/geant4/bin/thisroot.sh
 
 # this will be sourced when entering the container
 cat > /.singularity.d/env/zzz-60-xenon-montecarlo.sh <<EOF

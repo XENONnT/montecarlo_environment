@@ -101,7 +101,7 @@ fi
 
 if [ \$XENON_SOURCE -eq 1 ]; then
     . scl_source enable devtoolset-8 >/dev/null 2>&1
-    START_DIR=`pwd`
+    START_DIR=\$PWD
     cd ${target_dir}/bin
     . ./thisroot.sh
     . ./geant4.sh

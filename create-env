@@ -85,7 +85,7 @@ make install
 cd /tmp
 rm -rf geant4.${geant4_version}.tar.gz geant4.${geant4_version}
 
-announce "Installing addition software not present in base_environment"
+announce "Installing additional software not present in base_environment"
 pip install awkward1
 pip install uproot4
 

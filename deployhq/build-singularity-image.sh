@@ -20,7 +20,7 @@ echo
 # DeployHQ puts the checkout in ~/deployhq-montecarlo/
 cd ~/deployhq-montecarlo/
 
-rm -f xenonnt-montecarlo.simg
+rm -f xenonnt-montecarlo*.simg
 singularity build xenonnt-montecarlo:${TAG}.simg docker://xenonnt/montecarlo:$TAG
 
 echo

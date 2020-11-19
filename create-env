@@ -86,6 +86,7 @@ cd /tmp
 rm -rf geant4.${geant4_version}.tar.gz geant4.${geant4_version}
 
 announce "Installing additional software not present in base_environment"
+. /opt/XENONnT/setup.sh
 python3 -m pip install uproot4
 python3 -m pip install awkward1
 

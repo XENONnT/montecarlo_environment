@@ -15,6 +15,8 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             graphviz-devel \
             gsl-devel \
             libX11-devel \
+            libXdmcp \
+            libXdmcp-devel \
             libXext-devel \
             libXft-devel \
             libxml2-devel \

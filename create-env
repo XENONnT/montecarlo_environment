@@ -32,6 +32,8 @@ function announce {
 }
 
 # build environment
+. /opt/XENONnT/setup.sh
+
 export LC_ALL=en_US.utf8
 export LANG=en_US.utf8
 
@@ -43,13 +45,6 @@ wget -nv -O root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz  https://ro
 tar xzf root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz -C /opt
 mv /opt/root $target_dir
 rm -rf root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz
-
-announce "Installing CMake"
-cd /tmp
-wget -nv -O cmake-3.17.3-Linux-x86_64.tar.gz https://github.com/Kitware/CMake/releases/download/v3.17.3/cmake-3.17.3-Linux-x86_64.tar.gz 
-tar xzf cmake-3.17.3-Linux-x86_64.tar.gz
-cp -a cmake-3.17.3-Linux-x86_64/* $target_dir/
-rm -f cmake-3.17.3-Linux-x86_64.tar.gz
 
 announce "Installing HDF5"
 cd /tmp
@@ -86,7 +81,6 @@ cd /tmp
 rm -rf geant4.${geant4_version}.tar.gz geant4.${geant4_version}
 
 announce "Installing additional software not present in base_environment"
-. /opt/XENONnT/setup.sh
 python3 -m pip install uproot4
 python3 -m pip install awkward1
 
@@ -105,7 +99,6 @@ if [ "x\$XENON_DEBUG" != "x" ]; then
 fi
 
 if [ \$XENON_SOURCE -eq 1 ]; then
-    . scl_source enable devtoolset-8 >/dev/null 2>&1
     START_DIR=\$PWD
     cd ${target_dir}/bin
     . ./thisroot.sh

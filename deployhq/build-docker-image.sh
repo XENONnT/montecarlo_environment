@@ -3,8 +3,12 @@
 set -e
 
 # git tag (if any), from DeployHQ
-TAG=$1
+BRANCH=$1
+TAG=$2
 if [ "X$TAG" = "X" ];then
+    TAG=$BRANCH
+fi
+if [ "X$TAG" = "Xmaster" ];then
     TAG=development
 fi
 echo

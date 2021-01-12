@@ -1,4 +1,4 @@
-FROM xenonnt/base-environment:development
+FROM xenonnt/base-environment:2021.01.11
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install centos-release-scl && \

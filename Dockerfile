@@ -1,4 +1,4 @@
-FROM xenonnt/base-environment:22021.08.2
+FROM xenonnt/base-environment:2021.08.2
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \

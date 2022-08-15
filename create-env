@@ -84,7 +84,7 @@ rm -rf geant4.${geant4_version}.tar.gz geant4.${geant4_version}
 announce "Installing additional software not present in base_environment"
 python3 -m pip install uproot==4.0.11
 python3 -m pip install awkward==1.4.0
-python3 -m pip install epix==0.3.1
+python3 -m pip install epix==0.3.2
 python3 -m pip install wfsim==1.0.1
 
 # hack to make thisroot.sh work in the minimal /bin/sh used

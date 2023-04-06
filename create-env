@@ -103,14 +103,22 @@ cat > /.singularity.d/env/zzz-60-xenon-montecarlo.sh <<EOF
 # grab a local cutax installation if we have one
 MIDWAY_CUTAX_DIR=/dali/lgrandi/xenonnt/software/cutax/${cutax_version}
 OSG_CUTAX_DIR=/xenon/xenonnt/software/cutax/${cutax_version}
-for dir in ${MIDWAY_CUTAX_DIR} ${OSG_CUTAX_DIR}; do
-  if [ -e $dir ]; then
-    CUTAX_LOCATION=$dir
+for dir in \${MIDWAY_CUTAX_DIR} \${OSG_CUTAX_DIR}; do
+  if [ -e \$dir ]; then
+     CUTAX_LOCATION=\$dir
   fi
 done
 
-export CUTAX_LOCATION
-export PYTHONPATH=${CUTAX_LOCATION}:$PYTHONPATH
+if [ "x\$INSTALL_CUTAX" = "x" ]; then
+    export INSTALL_CUTAX=1
+fi
+
+if [ \$INSTALL_CUTAX -eq 1 ]; then
+  if [ -e "\${CUTAX_LOCATION}" ]; then
+    export CUTAX_LOCATION
+    export PYTHONPATH=\${CUTAX_LOCATION}:\$PYTHONPATH
+  fi
+fi
 
 if [ "x\$XENON_DEBUG" != "x" ]; then
     echo

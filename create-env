@@ -89,9 +89,6 @@ python3 -m pip install awkward==1.10.1
 python3 -m pip install wfsim==1.0.2
 python3 -m pip install epix==0.3.4
 
-# A more advanced cutax than that of SR0
-cutax_version=v1.14.3
-
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container
 cp /tmp/thisroot.sh /opt/geant4/bin/thisroot.sh
@@ -99,26 +96,6 @@ cp /tmp/thisroot.sh /opt/geant4/bin/thisroot.sh
 # this will be sourced when entering the container
 cat > /.singularity.d/env/zzz-60-xenon-montecarlo.sh <<EOF
 #!/bin/sh
-
-# grab a local cutax installation if we have one
-MIDWAY_CUTAX_DIR=/dali/lgrandi/xenonnt/software/cutax/${cutax_version}
-OSG_CUTAX_DIR=/xenon/xenonnt/software/cutax/${cutax_version}
-for dir in \${MIDWAY_CUTAX_DIR} \${OSG_CUTAX_DIR}; do
-  if [ -e \$dir ]; then
-     CUTAX_LOCATION=\$dir
-  fi
-done
-
-if [ "x\$INSTALL_CUTAX" = "x" ]; then
-    export INSTALL_CUTAX=1
-fi
-
-if [ \$INSTALL_CUTAX -eq 1 ]; then
-  if [ -e "\${CUTAX_LOCATION}" ]; then
-    export CUTAX_LOCATION
-    export PYTHONPATH=\${CUTAX_LOCATION}:\$PYTHONPATH
-  fi
-fi
 
 if [ "x\$XENON_DEBUG" != "x" ]; then
     echo

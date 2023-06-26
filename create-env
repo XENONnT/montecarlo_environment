@@ -82,10 +82,10 @@ rm -rf geant4.${geant4_version}.tar.gz geant4.${geant4_version}
 
 # announce "Installing non-grid XENON software"
 announce "Installing additional software not present in base_environment"
-python3 -m pip install numpy==1.22.4
-python3 -m pip install numba==0.55.2
+#python3 -m pip install numpy==1.22.4
+#python3 -m pip install numba==0.55.2
 python3 -m pip install uproot==4.3.7
-python3 -m pip install awkward==1.10.1
+#python3 -m pip install awkward==1.10.1
 python3 -m pip install wfsim==1.0.2
 python3 -m pip install epix==0.3.4
 

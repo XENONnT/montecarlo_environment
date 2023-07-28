@@ -1,4 +1,4 @@
-FROM xenonnt/base-environment:development
+FROM xenonnt/base-environment:sr0_wimp
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \

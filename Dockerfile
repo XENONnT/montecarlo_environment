@@ -1,4 +1,4 @@
-FROM xenonnt/base-environment:2023.07.2
+FROM xenonnt/base-environment:development
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \

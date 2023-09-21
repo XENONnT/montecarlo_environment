@@ -99,11 +99,6 @@ cd nestpy
 pip install .
 cd ..
 
-git clone git@github.com:XENONnT/fuse
-cd fuse
-pip install .
-cd ..
-
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container
 cp /tmp/thisroot.sh /opt/geant4/bin/thisroot.sh

@@ -94,7 +94,9 @@ cd strax
 pip install .
 cd ..
 
-git clone https://github.com/NESTCollaboration/nestpy.git -b v2.0.1
+# Cloning master branch of nestpy as of 28.09.2023
+# Reason behind is that the v2.0.1 tag does not point to the v2.0.1 installation
+git clone https://github.com/NESTCollaboration/nestpy.git
 cd nestpy
 git submodule update --init --recursive
 pip install .

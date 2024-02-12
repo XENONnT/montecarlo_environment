@@ -89,11 +89,12 @@ announce "Installing additional software not present in base_environment"
 #python3 -m pip install wfsim==1.0.2
 #python3 -m pip install epix==0.3.5
 
-# Cloning master branch of nestpy as of 28.09.2023
-# Reason behind is that the v2.0.1 tag does not point to the v2.0.1 installation
+# Cloning master branch of nestpy as of 12.02.2024
+# Reason behind is that there is no new tag, while we need the last feature merged as of that date
 git clone https://github.com/NESTCollaboration/nestpy.git
 cd nestpy
 git submodule update --init --recursive
+git checkout fb3804e
 pip install .
 cd ..
 

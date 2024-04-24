@@ -86,7 +86,7 @@ announce "Installing additional software not present in base_environment"
 #python3 -m pip install numba==0.55.2
 #python3 -m pip install uproot==4.3.7
 #python3 -m pip install awkward==1.10.1
-python3 -m pip install wfsim==1.2.1
+python3 -m pip install wfsim==1.2.2
 python3 -m pip install epix==0.3.8
 python3 -m pip install pema==0.7.0
 
@@ -99,7 +99,7 @@ git checkout fb3804e
 pip install .
 cd ..
 
-python3 -m pip install xenon-fuse==1.2.0
+python3 -m pip install xenon-fuse==1.2.1
 
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container

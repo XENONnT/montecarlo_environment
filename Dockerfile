@@ -31,7 +31,7 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             openssl-devel \
             pcre-devel \
             qt5-qtbase-devel \
-            redhat-lsb-core \
+            #redhat-lsb-core \
             xerces-c \
             xerces-c-devel \
     && \

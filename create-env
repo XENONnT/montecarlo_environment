@@ -4,7 +4,7 @@
 #
 # versions in this release
 
-root_version=6.32.00
+root_version=6.22.00
 geant4_version=10.06.p02
 
 #######################################################################
@@ -41,10 +41,10 @@ export PATH=$target_dir/bin:$PATH
 
 announce "Installing ROOT"
 cd /tmp
-wget -nv -O root_v${root_version}.Linux-almalinux9.4-x86_64-gcc11.4.tar.gz  https://root.cern/download/root_v${root_version}.Linux-almalinux9.4-x86_64-gcc11.4.tar.gz
-tar xzf root_v${root_version}.Linux-almalinux9.4-x86_64-gcc11.4.tar.gz -C /opt
+wget -nv -O root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz  https://root.cern/download/root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz
+tar xzf root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz -C /opt
 mv /opt/root $target_dir
-rm -rf root_v${root_version}.Linux-almalinux9.4-x86_64-gcc11.4.tar.gz
+rm -rf root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz
 
 announce "Installing HDF5"
 cd /tmp

@@ -1,4 +1,4 @@
-FROM xenonnt/base-environment:el7.2024.07.1
+FROM xenonnt/base-environment:el9.2024.07.1
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \
@@ -31,7 +31,7 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             openssl-devel \
             pcre-devel \
             qt5-qtbase-devel \
-            redhat-lsb-core \
+            #redhat-lsb-core \
             xerces-c \
             xerces-c-devel \
     && \

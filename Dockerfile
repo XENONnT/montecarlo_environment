@@ -1,4 +1,4 @@
-FROM xenonnt/base-environment:development
+FROM xenonnt/base-environment:el7.2024.07.1
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \

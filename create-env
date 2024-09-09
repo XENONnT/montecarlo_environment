@@ -39,12 +39,15 @@ export LANG=en_US.utf8
 
 export PATH=$target_dir/bin:$PATH
 
+
+[ ]
+	
 announce "Installing ROOT"
 cd /tmp
-wget -nv -O root_v${root_version}.Linux-almalinux8.8-x86_64-gcc8.5.tar.gz  https://root.cern/download/root_v${root_version}.Linux-almalinux8.8-x86_64-gcc8.5.tar.gz
-tar xzf root_v${root_version}.Linux-almalinux8.8-x86_64-gcc8.5.tar.gz -C /opt
+wget -nv -O root_v${root_version}.Linux-almalinux9.3-x86_64-gcc11.4.tar.gz  https://root.cern/download/root_v${root_version}.Linux-almalinux9.3-x86_64-gcc11.4.tar.gz
+tar xzf root_v${root_version}.Linux-almalinux9.3-x86_64-gcc11.4.tar.gz -C /opt
 mv /opt/root $target_dir
-rm -rf root_v${root_version}.Linux-almalinux8.8-x86_64-gcc8.5.tar.gz
+rm -rf root_v${root_version}.Linux-almalinux9.3-x86_64-gcc11.4.tar.gz
 
 announce "Installing HDF5"
 cd /tmp

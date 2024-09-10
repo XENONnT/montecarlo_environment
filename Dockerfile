@@ -9,6 +9,7 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             fftw-devel \
             ftgl-devel \
             gcc-gfortran \
+            gcc-toolset-13 \
             glew-devel \
             graphviz-devel \
             gsl-devel \

@@ -38,9 +38,6 @@ export LC_ALL=en_US.utf8
 export LANG=en_US.utf8
 
 export PATH=$target_dir/bin:$PATH
-
-
-[ ]
 	
 announce "Installing ROOT"
 cd /tmp

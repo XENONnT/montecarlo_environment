@@ -8,6 +8,7 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             expat-devel \
             fftw-devel \
             ftgl-devel \
+            gcc-c++ \
             gcc-gfortran \
             glew-devel \
             graphviz-devel \
@@ -31,9 +32,10 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             openssl-devel \
             pcre-devel \
             qt5-qtbase-devel \
-            #redhat-lsb-core \
+            tbb-devel \
             xerces-c \
             xerces-c-devel \
+            xxhash-devel \
     && \
     yum clean all
 

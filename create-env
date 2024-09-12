@@ -66,6 +66,7 @@ cd geant4.${geant4_version}
 mkdir build 
 cd build 
 cmake -DCMAKE_INSTALL_PREFIX=$target_dir \
+      -DGEANT4_BUILD_CXXSTD=17 \
       -DGEANT4_INSTALL_DATA=ON  \
       -DGEANT4_USE_OPENGL_X11=OFF \
       -DGEANT4_BUILD_MULTITHREADED=OFF \

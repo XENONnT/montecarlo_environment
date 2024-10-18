@@ -1,4 +1,4 @@
-FROM xenonnt/base-environment:el9.2024.09.1
+FROM xenonnt/base-environment:el9.2024.10.2
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \

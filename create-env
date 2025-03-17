@@ -99,7 +99,7 @@ git checkout fb3804e
 pip install .
 cd ..
 
-python3 -m pip install xenon-fuse==1.4.2
+python3 -m pip install xenon-fuse==1.4.3
 
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container

@@ -1,4 +1,4 @@
-FROM xenonnt/base-environment:el7.2024.10.3
+FROM xenonnt/base-environment:el7.sr1_wimp_unblind
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \

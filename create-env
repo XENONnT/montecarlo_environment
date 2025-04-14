@@ -95,7 +95,7 @@ python3 -m pip install pema==0.7.0
 git clone https://github.com/NESTCollaboration/nestpy.git
 cd nestpy
 git submodule update --init --recursive
-git checkout fb3804e
+git checkout 3b5ce87
 pip install .
 cd ..
 

@@ -96,6 +96,11 @@ git clone https://github.com/NESTCollaboration/nestpy.git
 cd nestpy
 git submodule update --init --recursive
 git checkout 3b5ce87
+cd lib/pybind11
+git fetch --tags
+git checkout v2.13.0
+cd ../../
+sed -i 's/cmake_minimum_required(VERSION 2.8.12)/cmake_minimum_required(VERSION 2.8.12...3.30)/' CMakeLists.txt
 pip install .
 cd ..
 

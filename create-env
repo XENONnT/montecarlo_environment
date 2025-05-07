@@ -96,16 +96,11 @@ python3 -m pip install pema==0.7.0
 git clone https://github.com/NESTCollaboration/nestpy.git
 cd nestpy
 git submodule update --init --recursive
-git checkout 3b5ce87
-cd lib/pybind11
-git fetch --tags
-git checkout v2.13.0
-cd ../../
-sed -i 's/cmake_minimum_required(VERSION 2.8.12)/cmake_minimum_required(VERSION 2.8.12...3.30)/' CMakeLists.txt
+git checkout fb3804e
 pip install .
 cd ..
 
-python3 -m pip install xenon-fuse==1.4.4
+python3 -m pip install xenon-fuse==1.4.2
 
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container

@@ -105,7 +105,7 @@ sed -i 's/cmake_minimum_required(VERSION 2.8.12)/cmake_minimum_required(VERSION 
 pip install .
 cd ..
 
-python3 -m pip install xenon-fuse==1.4.4
+python3 -m pip install xenon-fuse==1.6.3
 
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container

@@ -46,17 +46,6 @@ tar xzf root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz -C /opt
 mv /opt/root $target_dir
 rm -rf root_v${root_version}.Linux-centos7-x86_64-gcc4.8.tar.gz
 
-announce "Installing HDF5"
-cd /tmp
-wget -nv -O hdf5-1.10.6.tar.gz https://support.hdfgroup.org/ftp/HDF5/releases/hdf5-1.10/hdf5-1.10.6/src/hdf5-1.10.6.tar.gz
-tar xzf hdf5-1.10.6.tar.gz
-cd hdf5-1.10.6
-./configure --prefix=$target_dir --enable-threadsafe --disable-hl
-make -j4
-make install
-cd /tmp
-rm -rf hdf5-1.10.6.tar.gz hdf5-1.10.6
-
 announce "Installing GEANT4"
 set -v
 cd /tmp
@@ -73,7 +62,7 @@ cmake -DCMAKE_INSTALL_PREFIX=$target_dir \
       -DGEANT4_USE_GDML=OFF \
       -DGEANT4_USE_RAYTRACER_X11=OFF \
       -DGEANT4_USE_XM=OFF \
-      -DGEANT4_USE_HDF5=ON \
+      -DGEANT4_USE_HDF5=OFF \
       /tmp/geant4.${geant4_version}
 make -j8
 make install

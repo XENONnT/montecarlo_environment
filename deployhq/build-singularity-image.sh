@@ -33,8 +33,8 @@ ls -l *.simg
 echo
 
 # assuming we are running on xenon.isi.edu
-mv xenonnt-montecarlo:${TAG}.simg /lizard/projects/XENONnT/xenon.isi.edu-webroot/images/.xenonnt-montecarlo:${TAG}.simg
-mv /lizard/projects/XENONnT/xenon.isi.edu-webroot/images/.xenonnt-montecarlo:${TAG}.simg /lizard/projects/XENONnT/xenon.isi.edu-webroot/images/xenonnt-montecarlo:${TAG}.simg
+mv xenonnt-base-environment:${TAG}.simg /scitech/shared/projects/XENONnT/xenon.isi.edu-webroot/images/.xenonnt-base-environment:${TAG}.simg
+mv /scitech/shared/projects/XENONnT/xenon.isi.edu-webroot/images/.xenonnt-base-environment:${TAG}.simg /scitech/shared/projects/XENONnT/xenon.isi.edu-webroot/images/xenonnt-base-environment:${TAG}.simg
 
 
 

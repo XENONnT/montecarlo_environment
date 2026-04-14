@@ -22,7 +22,7 @@ cd ~/deployhq-montecarlo/
 docker pull opensciencegrid/osgvo-xenon:development
 
 # build the Docker image (minimized)
-docker build --no-cache -t xenonnt/montecarlo:$TAG .
+docker build --progress=plain --no-cache -t xenonnt/montecarlo:$TAG .
 
 # upload to Docker Hub - OSG will pull from there for the Singularity CVMFS repo
 docker push xenonnt/montecarlo:$TAG

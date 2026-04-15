@@ -41,7 +41,6 @@ ADD create-env /tmp/
 ADD thisroot.sh /tmp/
 
 RUN cd /tmp && \
-    set -euxo pipefail && \
     bash create-env /opt/geant4 && \
     rm -f create-env 
 

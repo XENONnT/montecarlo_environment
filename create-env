@@ -10,6 +10,7 @@ geant4_version=10.06.p02
 #######################################################################
 
 set -e
+set -o pipefail
 
 target_dir=$1
 
@@ -18,7 +19,7 @@ if [ "X$target_dir" = "X" ]; then
     exit 1
 fi
 
-if [ -e $target_dir ]; then
+if [ -e "$target_dir" ]; then
     echo "Target directory already exists - refusing to work on it" >&1
     exit 1
 fi
@@ -75,30 +76,42 @@ announce "Installing additional software not present in base_environment"
 #python3 -m pip install numba==0.55.2
 #python3 -m pip install uproot==4.3.7
 #python3 -m pip install awkward==1.10.1
-python3 -m pip install wfsim==1.2.2
-python3 -m pip install epix==0.3.8
-python3 -m pip install pema==0.7.0
+#python3 -m pip install wfsim==1.2.2
+#python3 -m pip install epix==0.3.8
+#python3 -m pip install pema==0.7.0
 
 # Cloning master branch of nestpy as of 12.02.2024
 # Reason behind is that there is no new tag, while we need the last feature merged as of that date
-git clone https://github.com/NESTCollaboration/nestpy.git
-cd nestpy
-git submodule update --init --recursive
-git checkout 3b5ce87
-cd lib/pybind11
-git fetch --tags
-git checkout v2.13.0
-cd ../../
-sed -i 's/cmake_minimum_required(VERSION 2.8.12)/cmake_minimum_required(VERSION 2.8.12...3.30)/' CMakeLists.txt
+#git clone https://github.com/NESTCollaboration/nestpy.git
+#cd nestpy
+#git submodule update --init --recursive
+#git checkout 3b5ce87
+#cd lib/pybind11
+#git fetch --tags
+#git checkout v2.13.0
+#cd ../../
+#sed -i 's/cmake_minimum_required(VERSION 2.8.12)/cmake_minimum_required(VERSION 2.8.12...3.30)/' CMakeLists.txt
 
-pip install .
-cd ..
+#pip install .
+#cd ..
 
-python3 -m pip install xenon-fuse==1.6.3
+#python3 -m pip install xenon-fuse==1.6.3
 
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container
-cp /tmp/thisroot.sh /opt/geant4/bin/thisroot.sh
+PATCHED_THISROOT="/tmp/thisroot.sh"
+ROOT_THISROOT="${target_dir}/bin/thisroot.sh"
+DEST_THISROOT="/opt/geant4/bin/thisroot.sh"
+
+if [ -f "$PATCHED_THISROOT" ]; then
+    install -m 0755 "$PATCHED_THISROOT" "$DEST_THISROOT"
+elif [ -f "$ROOT_THISROOT" ]; then
+    echo "WARNING: $PATCHED_THISROOT not found; falling back to $ROOT_THISROOT" >&2
+    install -m 0755 "$ROOT_THISROOT" "$DEST_THISROOT"
+else
+    echo "ERROR: could not find thisroot.sh at $PATCHED_THISROOT or $ROOT_THISROOT" >&2
+    exit 1
+fi
 
 # this will be sourced when entering the container
 cat > /.singularity.d/env/zzz-60-xenon-montecarlo.sh <<EOF

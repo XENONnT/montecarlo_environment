@@ -10,7 +10,6 @@ geant4_version=10.06.p02
 #######################################################################
 
 set -e
-set -o pipefail
 
 target_dir=$1
 
@@ -99,19 +98,7 @@ announce "Installing additional software not present in base_environment"
 
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container
-PATCHED_THISROOT="/tmp/thisroot.sh"
-ROOT_THISROOT="${target_dir}/bin/thisroot.sh"
-DEST_THISROOT="/opt/geant4/bin/thisroot.sh"
-
-if [ -f "$PATCHED_THISROOT" ]; then
-    install -m 0755 "$PATCHED_THISROOT" "$DEST_THISROOT"
-elif [ -f "$ROOT_THISROOT" ]; then
-    echo "WARNING: $PATCHED_THISROOT not found; falling back to $ROOT_THISROOT" >&2
-    install -m 0755 "$ROOT_THISROOT" "$DEST_THISROOT"
-else
-    echo "ERROR: could not find thisroot.sh at $PATCHED_THISROOT or $ROOT_THISROOT" >&2
-    exit 1
-fi
+cp /tmp/thisroot.sh /opt/geant4/bin/thisroot.sh
 
 # this will be sourced when entering the container
 cat > /.singularity.d/env/zzz-60-xenon-montecarlo.sh <<EOF

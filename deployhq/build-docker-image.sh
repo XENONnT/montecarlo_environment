@@ -32,4 +32,3 @@ if [ "X$TAG" = "Xdevelopment" ]; then
     docker tag xenonnt/montecarlo:$TAG xenonnt/montecarlo:latest
     docker push xenonnt/montecarlo:latest
 fi
-

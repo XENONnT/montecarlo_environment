@@ -25,16 +25,27 @@ echo
 cd ~/deployhq-montecarlo/
 
 rm -f xenonnt-montecarlo*.simg
-singularity build xenonnt-montecarlo:${TAG}.simg docker://xenonnt/montecarlo:$TAG
+
+IMAGE_FILE="xenonnt-montecarlo:${TAG}.simg"
+singularity build "${IMAGE_FILE}" "docker://xenonnt/montecarlo:${TAG}"
 
 echo
 echo "Created simg file:"
 ls -l *.simg
 echo
 
-# assuming we are running on xenon.isi.edu
-mv xenonnt-montecarlo:${TAG}.simg /lizard/projects/XENONnT/xenon.isi.edu-webroot/images/.xenonnt-montecarlo:${TAG}.simg
-mv /lizard/projects/XENONnT/xenon.isi.edu-webroot/images/.xenonnt-montecarlo:${TAG}.simg /lizard/projects/XENONnT/xenon.isi.edu-webroot/images/xenonnt-montecarlo:${TAG}.simg
+if [ ! -f "${IMAGE_FILE}" ]; then
+    echo "ERROR: Expected image file not found: ${IMAGE_FILE}" >&2
+    exit 1
+fi
 
+# Publish (assuming we are running on xenon.isi.edu)
+PUBLISH_DIR="/scitech/shared/projects/XENONnT/xenon.isi.edu-webroot/images"
+if [ -d "${PUBLISH_DIR}" ]; then
+    mv -f "${IMAGE_FILE}" "${PUBLISH_DIR}/.${IMAGE_FILE}"
+    mv -f "${PUBLISH_DIR}/.${IMAGE_FILE}" "${PUBLISH_DIR}/${IMAGE_FILE}"
+else
+    echo "WARNING: Publish directory not found (${PUBLISH_DIR}); skipping publish step."
+fi
 
 

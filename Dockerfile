@@ -1,4 +1,4 @@
-FROM xenonnt/base-environment:el9.sr1_wimp_unblind
+FROM xenonnt/base-environment:el9.2026.03.1
 
 RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \

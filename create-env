@@ -39,12 +39,27 @@ export LANG=en_US.utf8
 
 export PATH=$target_dir/bin:$PATH
 
+# ROOT 6.22/libNet needs these sonames on EL8
+if command -v dnf >/dev/null 2>&1; then
+    dnf -y install compat-openssl10
+elif command -v yum >/dev/null 2>&1; then
+    yum -y install compat-openssl10
+fi
+
 announce "Installing ROOT"
 cd /tmp
 wget -nv -O root_v${root_version}.Linux-AlmaLinux8.10-x86_64-gcc8.5.tar.gz https://root.cern/download/root_v${root_version}.Linux-AlmaLinux8.10-x86_64-gcc8.5.tar.gz
 tar xzf root_v${root_version}.Linux-AlmaLinux8.10-x86_64-gcc8.5.tar.gz -C /opt
 mv /opt/root $target_dir
 rm -rf root_v${root_version}.Linux-AlmaLinux8.10-x86_64-gcc8.5.tar.gz
+
+# Make sure the newly installed ROOT is the one being used
+. ${target_dir}/bin/thisroot.sh
+installed_root_version=$(root-config --version | tr '/' '.')
+if [ "$installed_root_version" != "$root_version" ]; then
+    echo "Unexpected ROOT version: $installed_root_version" >&2
+    exit 1
+fi
 
 announce "Installing GEANT4"
 set -v
@@ -98,7 +113,7 @@ announce "Installing additional software not present in base_environment"
 
 # hack to make thisroot.sh work in the minimal /bin/sh used
 # when starting the Singularity container
-cp /tmp/thisroot.sh /opt/geant4/bin/thisroot.sh
+cp /tmp/thisroot.sh ${target_dir}/bin/thisroot.sh
 
 # this will be sourced when entering the container
 cat > /.singularity.d/env/zzz-60-xenon-montecarlo.sh <<EOF

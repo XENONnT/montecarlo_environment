@@ -75,6 +75,9 @@ cd geant4.${geant4_version}
 mkdir build 
 cd build 
 cmake -DCMAKE_INSTALL_PREFIX=$target_dir \
+      -DGEANT4_BUILD_CXXSTD=17 \
+      -DCMAKE_CXX_STANDARD=17 \
+      -DCMAKE_CXX_STANDARD_REQUIRED=ON \
       -DGEANT4_INSTALL_DATA=ON  \
       -DGEANT4_USE_OPENGL_X11=OFF \
       -DGEANT4_BUILD_MULTITHREADED=OFF \
@@ -86,6 +89,18 @@ cmake -DCMAKE_INSTALL_PREFIX=$target_dir \
       /tmp/geant4.${geant4_version}
 make -j8
 make install
+
+# Geant4 10.06 still exports -std=c++11 in geant4make/geant4-config on EL8.
+sed -i 's/-std=c++11/-std=c++17/g' "${target_dir}/bin/geant4-config"
+sed -i 's/-std=c++11/-std=c++17/g' "${target_dir}"/share/Geant4-*/geant4make/config/sys/Linux-g++.gmk
+sed -i 's/-std=c++11/-std=c++17/g' "${target_dir}"/lib*/Geant4-*/Geant4Config.cmake
+
+# Fail early if the install still exports C++11
+if "${target_dir}/bin/geant4-config" --cflags | grep -q -- '-std=c++11'; then
+    echo "ERROR: Installed Geant4 still exports -std=c++11" >&2
+    exit 1
+fi
+
 cd /tmp
 rm -rf geant4.${geant4_version}.tar.gz geant4.${geant4_version}
 

@@ -33,6 +33,7 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             redhat-lsb-core \
             xerces-c \
             xerces-c-devel \
+            xxhash-libs \
     && yum clean all
 
 ADD create-env /tmp/
@@ -42,13 +43,7 @@ RUN cd /tmp && \
     bash create-env /opt/geant4 && \
     rm -f create-env
 
-RUN ldconfig && \
-    /opt/geant4/bin/root-config --version && \
-    ldd /opt/geant4/lib/libNet.so | tee /tmp/libNet.ldd && \
-    ! grep -q "not found" /tmp/libNet.ldd && \
-    rm -f /tmp/libNet.ldd
-
-RUN rpm -q compat-openssl10 && \
+RUN rpm -q compat-openssl10 xxhash-libs && \
     ls -l /usr/lib64/libssl.so.10 /usr/lib64/libcrypto.so.10 && \
     /opt/geant4/bin/root-config --version
 

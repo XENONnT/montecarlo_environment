@@ -48,6 +48,10 @@ RUN ldconfig && \
     ! grep -q "not found" /tmp/libNet.ldd && \
     rm -f /tmp/libNet.ldd
 
+RUN rpm -q compat-openssl10 && \
+    ls -l /usr/lib64/libssl.so.10 /usr/lib64/libcrypto.so.10 && \
+    /opt/geant4/bin/root-config --version
+
 # build info
 RUN echo "Timestamp:" `date --utc` | tee /image-build-info.txt
 

@@ -60,12 +60,6 @@ if [ "$installed_root_version" != "$root_version" ]; then
     exit 1
 fi
 
-if ldd ${target_dir}/lib/libNet.so | grep -q "not found"; then
-    echo "ROOT has unresolved shared-library dependencies:" >&2
-    ldd ${target_dir}/lib/libNet.so >&2
-    exit 1
-fi
-
 announce "Installing GEANT4"
 set -v
 cd /tmp

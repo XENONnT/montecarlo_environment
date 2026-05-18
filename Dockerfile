@@ -4,6 +4,7 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
     yum -y install \
             avahi-compat-libdns_sd-devel \
             cfitsio-devel \
+            compat-openssl10 \
             expat \
             expat-devel \
             fftw-devel \
@@ -14,8 +15,6 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             gsl-devel \
             libX11-devel \
             libXdmcp \
-            libXdmcp \
-            libXdmcp-devel \
             libXdmcp-devel \
             libXext-devel \
             libXft-devel \
@@ -34,15 +33,20 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             redhat-lsb-core \
             xerces-c \
             xerces-c-devel \
-    && \
-    yum clean all
+    && yum clean all
 
 ADD create-env /tmp/
 ADD thisroot.sh /tmp/
 
 RUN cd /tmp && \
     bash create-env /opt/geant4 && \
-    rm -f create-env 
+    rm -f create-env
+
+RUN ldconfig && \
+    /opt/geant4/bin/root-config --version && \
+    ldd /opt/geant4/lib/libNet.so | tee /tmp/libNet.ldd && \
+    ! grep -q "not found" /tmp/libNet.ldd && \
+    rm -f /tmp/libNet.ldd
 
 # build info
 RUN echo "Timestamp:" `date --utc` | tee /image-build-info.txt

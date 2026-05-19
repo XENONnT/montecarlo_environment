@@ -31,6 +31,8 @@ RUN yum -y clean all && yum -y --skip-broken upgrade && \
             pcre-devel \
             qt5-qtbase-devel \
             redhat-lsb-core \
+            tbb \
+            tbb-devel \
             xerces-c \
             xerces-c-devel \
             xxhash-libs \
